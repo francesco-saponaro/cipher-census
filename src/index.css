@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+/* Tokens. The ground is a blue-grey one level off white; cards stay white; the chrome holds no colour.
+   The one chart hue goes on the exposure bars that cross the horizon and nowhere else. */
+:root {
+  --ground: #f2f4f7;
+  --surface: #ffffff;
+  --raised: #eaedf1;
+  --active: #e3e6eb;
+  --border: #e3e5e8;
+  --rule: #eef0f2;
+  --control: #cfd3d8;
+  --text: #0a0a0a;
+  --muted: #5f6368;
+  --faint: #6b6b6b;
+  --accent: #141414;
+  --primary: #141414;
+  --primary-ink: #ffffff;
+  --hue: #1d5fbf;
+  --positive: #2e7d32;
+  --negative: #c4242a;
+  --warning: #92400e;
+  --pill-positive-bg: #dcfae5;
+  --pill-positive-ink: #04250e;
+  --pill-negative-bg: #ffedea;
+  --pill-negative-ink: #831c1e;
+  --pill-warning-bg: #fffbeb;
+  --pill-warning-ink: #92400e;
+  --pill-neutral-bg: #eeeeee;
+  --pill-neutral-ink: #3d3d3d;
+  --chart-muted: #c9ced6;
+  --grid: #e3e5e8;
+
+  --font: "Geist", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-title: 24px;
+  --fs-section: 16px;
+  --fs-kpi: 30px;
+  --fs-body: 14px;
+  --fs-small: 12px;
+
+  --sidebar-width: 256px;
+  --pad: 24px;
+  --gap: 12px;
+  --card-pad: 20px;
+  --radius-card: 8px;
+  --radius-control: 6px;
+  --control-height: 36px;
+  --row-height: 44px;
+  --nav-row: 32px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-press: 120ms;
+  --t-hover: 150ms;
+  --t-ui: 200ms;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-active: var(--active);
+  --color-border: var(--border);
+  --color-rule: var(--rule);
+  --color-control: var(--control);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink);
+  --color-hue: var(--hue);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+  --font-sans: var(--font);
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font: var(--fs-body) / 20px var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.num,
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The shell: a labelled sidebar on the page ground, no top bar, the canvas fluid with one gutter.
+   At 1440: 256 sidebar + 24 + 1136 content + 24 = 1440. Six columns of 179.33 with five 12px gutters = 1136. */
+.app {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  min-height: 100svh;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px 16px;
+  overflow: auto;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: var(--nav-row);
+  padding: 0 8px;
+  border-radius: 8px;
+  color: var(--muted);
+  transition:
+    background-color var(--t-hover) ease,
+    color var(--t-hover) ease;
+}
+.nav-item:hover {
+  background: var(--raised);
+  color: var(--text);
+}
+.nav-item[aria-current="page"] {
+  background: var(--active);
+  color: var(--text);
+}
+.canvas {
+  min-width: 0;
+  padding: 32px var(--pad) 48px;
+}
+.topbar {
+  display: none;
+}
+
+.grid6 {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: var(--card-pad);
+  min-width: 0;
+}
+.panel h2 {
+  font-size: var(--fs-section);
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* KPIs: one container split by rules, label over value, nothing else */
+.kpis {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+.kpi {
+  padding: 16px var(--card-pad);
+}
+.kpi + .kpi {
+  border-left: 1px solid var(--border);
+}
+
+/* tables: rules and alignment, no header band, no zebra */
+.table-wrap {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  height: 36px;
+  padding: 0 12px;
+  text-align: left;
+  font-weight: 400;
+  font-size: var(--fs-small);
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: calc((var(--row-height) - 20px) / 2) 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+th:first-child,
+td:first-child {
+  padding-left: 0;
+}
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+th.n,
+td.n {
+  text-align: right;
+}
+tbody tr.link-row {
+  cursor: pointer;
+}
+tbody tr.link-row:hover td {
+  background: var(--raised);
+}
+
+/* rows inside a card */
+.rows > * + * {
+  border-top: 1px solid var(--rule);
+}
+
+.skeleton {
+  background: var(--raised);
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}
