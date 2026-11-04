@@ -1,7 +1,9 @@
 import { createMemoryHistory, createRootRoute, createRoute, createRouter, Outlet, type RouterHistory } from "@tanstack/react-router";
 import { HORIZONS, type Horizon } from "@/api/client.ts";
 import { Shell } from "@/components/Shell.tsx";
+import { AssetDetail } from "@/routes/AssetDetail.tsx";
 import { Census, type CensusSearch } from "@/routes/Census.tsx";
+import { Services } from "@/routes/Services.tsx";
 import { asOf } from "@server/data.ts";
 import type { AssetKind, QuantumExposure } from "@server/types.ts";
 import { kindLabels } from "@/format.ts";
@@ -55,7 +57,36 @@ const censusRoute = createRoute({
   },
 });
 
-const routeTree = rootRoute.addChildren([censusRoute]);
+const servicesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services",
+  validateSearch: (raw: Record<string, unknown>): { horizon: Horizon } => ({ horizon: parseHorizon(raw.horizon) }),
+  component: function ServicesPage() {
+    const { horizon } = servicesRoute.useSearch();
+    return (
+      <WithShell horizon={horizon}>
+        <Services horizon={horizon} />
+      </WithShell>
+    );
+  },
+});
+
+const assetRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/assets/$id",
+  validateSearch: (raw: Record<string, unknown>): { horizon: Horizon } => ({ horizon: parseHorizon(raw.horizon) }),
+  component: function AssetPage() {
+    const { id } = assetRoute.useParams();
+    const { horizon } = assetRoute.useSearch();
+    return (
+      <WithShell horizon={horizon}>
+        <AssetDetail id={id} horizon={horizon} />
+      </WithShell>
+    );
+  },
+});
+
+const routeTree = rootRoute.addChildren([censusRoute, servicesRoute, assetRoute]);
 
 export function createAppRouter(history?: RouterHistory) {
   return createRouter({
