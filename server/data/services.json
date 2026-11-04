@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "payments-gateway",
+    "name": "Payments gateway",
+    "team": "Payments",
+    "criticality": "critical"
+  },
+  {
+    "slug": "card-vault",
+    "name": "Card vault",
+    "team": "Payments",
+    "criticality": "critical"
+  },
+  {
+    "slug": "settlement-engine",
+    "name": "Settlement engine",
+    "team": "Payments",
+    "criticality": "high"
+  },
+  {
+    "slug": "trading-api",
+    "name": "Trading API",
+    "team": "Trading",
+    "criticality": "critical"
+  },
+  {
+    "slug": "market-data-feed",
+    "name": "Market data feed",
+    "team": "Trading",
+    "criticality": "standard"
+  },
+  {
+    "slug": "customer-identity",
+    "name": "Customer identity",
+    "team": "Identity",
+    "criticality": "critical"
+  },
+  {
+    "slug": "sso-portal",
+    "name": "Staff SSO portal",
+    "team": "Identity",
+    "criticality": "high"
+  },
+  {
+    "slug": "vpn-edge",
+    "name": "VPN edge",
+    "team": "Infrastructure",
+    "criticality": "high"
+  },
+  {
+    "slug": "build-pipeline",
+    "name": "Build pipeline",
+    "team": "Infrastructure",
+    "criticality": "high"
+  },
+  {
+    "slug": "kubernetes-control",
+    "name": "Kubernetes control plane",
+    "team": "Infrastructure",
+    "criticality": "critical"
+  },
+  {
+    "slug": "data-lake",
+    "name": "Data lake",
+    "team": "Data platform",
+    "criticality": "high"
+  },
+  {
+    "slug": "backup-archive",
+    "name": "Backup archive",
+    "team": "Data platform",
+    "criticality": "critical"
+  },
+  {
+    "slug": "mail-relay",
+    "name": "Mail relay",
+    "team": "Corporate IT",
+    "criticality": "standard"
+  },
+  {
+    "slug": "public-web",
+    "name": "Public website",
+    "team": "Corporate IT",
+    "criticality": "standard"
+  }
+]
