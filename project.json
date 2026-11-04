@@ -1,0 +1,9 @@
+{
+  "slug": "cipher-census",
+  "name": "Cipher Census",
+  "company": "CryptoNext Security",
+  "description": "A triage desk for a cryptographic inventory: which keys, certificates and endpoints break under a quantum computer, and the order to migrate them.",
+  "dist": "dist",
+  "test": "npm test -- --run",
+  "build": "npm run build"
+}
